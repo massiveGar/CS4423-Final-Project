@@ -24,12 +24,12 @@ public abstract class DefaultEnemyAI : MonoBehaviour
         
         text.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
         text.GetComponent<TextMeshPro>().SetText(""+number);
-
-        StartCoroutine(DespawnDamageNumber());
-        IEnumerator DespawnDamageNumber() {
-            yield return new WaitForSeconds(1);
-            Destroy(text);
-        }
+        Destroy(text, 1);
+        // StartCoroutine(DespawnDamageNumber());
+        // IEnumerator DespawnDamageNumber() {
+        //     yield return new WaitForSeconds(1);
+        //     Destroy(text);
+        // }
     }
 
     public abstract void TakeDamage(int power);

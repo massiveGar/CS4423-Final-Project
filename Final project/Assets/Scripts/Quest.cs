@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 
@@ -15,7 +16,7 @@ public struct QuestReward {
     }
 };
 
-
+[System.Serializable]
 public class Quest
 {
     public string text;    // Quest flavor text

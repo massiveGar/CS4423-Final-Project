@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class QuestController : MonoBehaviour
 {
-    Quest[] quests;
+    [SerializeField] Quest[] quests;
     int[] enemiesKilled = new int[10];
 
-    void Start() {
+    void Awake() {
         quests = new Quest[10];
+    }
+
+    void Start() {
+        
 
         // Tutorial quest, kill 5 slimes
         Ring rewardRing = new Ring(1, "Hack", 5, 5);
         QuestReward reward = new QuestReward("Great job!", 10, rewardRing);
-        Quest quest = new Quest("Flavor text", "Kill 10 slimes", QuestType.Kill, 5, reward, 1);
+        Quest quest = new Quest("Flavor text", "Kill 3 slimes", QuestType.Kill, 3, reward, 1);
         AddQuest(quest, 1);
-
     }
 
     public void AddQuest(Quest quest, int id) {
@@ -25,6 +28,7 @@ public class QuestController : MonoBehaviour
         return quests[id];
     }
     public void ActivateQuest(int id) {
+        Debug.Log("Quest '" + quests[id].objective + "' start!");
         quests[id].active = true;
     }
 

@@ -16,7 +16,7 @@ public class NPC : MonoBehaviour
             Debug.Log("Set the NPC ID for " + gameObject.name);
             return;
         }
-        quest = GameController.Instance.GetQuest(NPCID);   // Get quest from controller using quest ID
+        
     }
 
     void InteractWithPlayer() {
@@ -24,8 +24,9 @@ public class NPC : MonoBehaviour
         if(!playerIsClose) {
             return;
         }
-
+    
         if(questActive) {
+            quest = GameController.Instance.GetQuest(NPCID);   // Get quest from controller using quest ID
             if(quest.complete) {
                 QuestReward reward = quest.reward;
                 // Show quest complete text

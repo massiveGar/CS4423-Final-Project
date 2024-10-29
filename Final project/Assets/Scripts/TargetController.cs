@@ -82,7 +82,7 @@ public class TargetController : MonoBehaviour
         target = visibleEnemies[0];
         // Move the target indicator to the target
         targetIndicator.transform.SetParent(target.transform, worldPositionStays:false);
-        //targetIndicator.transform.localPosition = new Vector3(0,-0.25f, 0);
+        targetIndicator.transform.localPosition = new Vector3(0,-0.25f, 0);
         targetIndicator.SetActive(true);
 
         // When an enemy is targeted, remove it from the main list and add it to alreadyTargeted
