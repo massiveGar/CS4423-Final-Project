@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68053cf8546e9b14c8757647772716a5, type: 3}
+  m_Name: Kill3Slimes
+  m_EditorClassIdentifier: 
+  id: 0
+  dialogue:
+  - 'Hey you! I could use some help - Slimes have overtaken my shop! '
+  - Clearly, I'm too injured to fight. I assume you have some experience using rings?
+  - What!? You've never used a ring before? That's okay - it's really easy!
+  - Here, take this Slash ring, if you choose a target with (Q), you can get close,
+    use the ring, and watch what happens!
+  - If you can kill the three slimes overtaking my shop, I can sell you some more
+    rings!
+  objective: Kill 3 Slimes
+  type: 0
+  requirement: 3
+  mobID: 0
+  reward:
+    rewardText: []
+    rewardXP: 5
+    rewardRingID: 1

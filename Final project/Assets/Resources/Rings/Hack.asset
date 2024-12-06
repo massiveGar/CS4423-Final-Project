@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa8999a1d9ce4ef4598185dbaa7b3e8e, type: 3}
+  m_Name: Hack
+  m_EditorClassIdentifier: 
+  id: 1
+  ringName: Hack
+  ringDescription: Embed a sword in your enemy, dealing heavy damage on a moderate
+    cooldown.
+  basePower: 5
+  attackRange: 4
+  cooldownLength: 5
+  ringType: 0
+  resource:
+    type: 1
+    cost: 5

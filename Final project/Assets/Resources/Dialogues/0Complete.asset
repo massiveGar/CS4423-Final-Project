@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8cf0cd423685ff4aa36760ae16fa1d6, type: 3}
+  m_Name: 0Complete
+  m_EditorClassIdentifier: 
+  id: 0
+  rootnode:
+    dialogueText:
+    - You did it! You've saved my shop!
+    dialogueResponses:
+    - responseText: All in a day's work!
+      nextNode:
+        dialogueText:
+        - Thank you! Thank you! Here, take some <i>Charge Orbs</i> and an extra <b>Hack
+          ring</b> that I kept in case you left me.
+        - Come see me in my shop and you can see what I've got for sale!
+        dialogueResponses: []
+        grantQuest: 0
+        openShop: 0
+    - responseText: Where's my reward?
+      nextNode:
+        dialogueText:
+        - Of course! Here, take some <i>Charge Orbs</i>. Come see me in my shop and
+          you can see what I've got for sale.
+        dialogueResponses: []
+        grantQuest: 0
+        openShop: 0
+    grantQuest: 0
+    openShop: 0
