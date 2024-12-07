@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8cf0cd423685ff4aa36760ae16fa1d6, type: 3}
+  m_Name: 2Initial
+  m_EditorClassIdentifier: 
+  id: 2
+  rootnode:
+    dialogueText:
+    - Tell you what, I've got this rare ranged ring called Snipe! It's all yours,
+      if you can prove to me that you're worthy enough to use it!
+    dialogueResponses:
+    - responseText: How can I do that?
+      nextNode:
+        dialogueText:
+        - Go to the south and kill 10 slimes, then report back to me!
+        dialogueResponses:
+        - responseText: That's it?
+          nextNode:
+            dialogueText:
+            - Of course! It's no easy task!
+            dialogueResponses:
+            - responseText: Alright then, I'll be back.
+              nextNode:
+                dialogueText: []
+                dialogueResponses: []
+                grantQuest: 1
+                openShop: 0
+            grantQuest: 0
+            openShop: 0
+        - responseText: Easy enough, I'll be back!
+          nextNode:
+            dialogueText: []
+            dialogueResponses: []
+            grantQuest: 1
+            openShop: 0
+        grantQuest: 0
+        openShop: 0
+    - responseText: Sorry, not interested.
+      nextNode:
+        dialogueText: []
+        dialogueResponses: []
+        grantQuest: 0
+        openShop: 0
+    grantQuest: 0
+    openShop: 0

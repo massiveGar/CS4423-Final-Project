@@ -32,6 +32,9 @@ public class GameController : MonoBehaviour
     public static event Action OnTargetChanged;
     public static event Action OnXPUpdated;
 
+    public static event Action OnSave;
+    public static event Action OnLoad;
+
     // Get references
     void Awake() {
         Instance = this;
@@ -52,6 +55,8 @@ public class GameController : MonoBehaviour
 
         // debug
         AddXP(3000);
+
+        MainController.Instance.GameControllerLoaded();
     }
     
     // Get components
@@ -66,6 +71,68 @@ public class GameController : MonoBehaviour
             ringController = GetPlayer().GetComponentInChildren<RingController>();
         }
         return ringController;
+    }
+    public RingAnimationController GetRingAnimationController() {
+        if(ringAnimationController == null) {
+            ringAnimationController = GetPlayer().GetComponentInChildren<RingAnimationController>();
+        }
+        return ringAnimationController;
+    }
+
+    // Save / Load
+    public void Save() {
+        // location of every enemy
+        // Has to be called with an event otherwise I'd have to reference every single spawner
+        OnSave?.Invoke();
+
+        // quests completed
+        questController.SaveQuests();
+
+        // enemies killed
+        questController.SaveKillCount();
+
+        // xp
+        NDSaveLoad.SaveInt(Constants.nd_XP, currentXP);
+
+        // inventory
+        ringController.SaveRings();
+        inventoryController.SaveInventory();
+
+        // hotbar
+        hotbarController.SaveHotbar();
+
+        // player info
+        NDSaveLoad.SaveVector3(Constants.nd_PlayPos, player.transform.position);
+        NDSaveLoad.SaveFloat(Constants.nd_PHealth, player.GetCurrentHealth());
+    }
+    public void Load() {
+        // location of every enemy
+        OnLoad?.Invoke();
+
+        // quests completed
+        questController.LoadQuests();
+
+        // enemies killed
+        questController.LoadKillCount();
+
+        // xp
+        currentXP = NDSaveLoad.LoadInt(Constants.nd_XP, 0);
+        AddXP(0);   // So the UI updates
+
+        // inventory
+        ringController.LoadRings();
+        inventoryController.LoadInventory();
+
+        // hotbar 
+        hotbarController.LoadHotbar();
+
+        // player info
+        player.transform.position = NDSaveLoad.LoadVector3(Constants.nd_PlayPos, player.transform.position);
+        player.SetHealth(NDSaveLoad.LoadFloat(Constants.nd_PHealth, 100));
+    }
+
+    public void Quit() {
+        MainController.Instance.SaveAndQuit();
     }
 
     // Pause
@@ -120,12 +187,7 @@ public class GameController : MonoBehaviour
     public void UseMana(int amount) {
         player.UseMana(amount);
     }
-    public float GetPlayerStamina() {
-        return player.GetCurrentStamina();
-    }
-    public void UseStamina(int amount) {
-        player.UseStamina(amount);
-    }
+
     public void UpdatePlayerInfo() {
         OnPlayerInfoUpdated?.Invoke();
     }
@@ -169,8 +231,8 @@ public class GameController : MonoBehaviour
 
     // Ring functions
     public void CreateRing(int ringID) {
-        ringController.AddNewRing(ringID);
-        
+        Ring newRing = ringController.AddNewRing(ringID);
+        inventoryController.AddRingToInventory(newRing);    // Add the new ring to the inventory
     }
     public void EquipRing(int hotbarID, int ringNumber) {
         ringController.EquipRing(hotbarID, ringNumber);
@@ -181,6 +243,9 @@ public class GameController : MonoBehaviour
     public void DestroyRing(Ring victim) {
         AddXP(victim.GetSalvageValue());
         ringController.RemoveRing(victim.ringNumber);
+    }
+    public Ring GetRing(int ringNumber) {
+        return ringController.GetRing(ringNumber);
     }
 
     // Hotbar functions

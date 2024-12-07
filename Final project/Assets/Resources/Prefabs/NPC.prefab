@@ -27,10 +27,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8568223992562285033}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 42.22222, y: -93.69556, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: -2023539121
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 1032917618, guid: 9e692a2a7b141984fa0ab596d3bfe1f5, type: 3}
   m_Color: {r: 0.16834284, g: 0.9150943, b: 0.16834284, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,11 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8140323e7091d8b4da6221cf278ad521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCID: -1
-  initialDialogue: {fileID: 0}
-  questInProgressDialogue: {fileID: 0}
-  questCompleteDialogue: {fileID: 0}
-  afterQuestDialogue: {fileID: 0}
+  NPCID: 0
+  initialDialogue: {fileID: 11400000, guid: 71c802f36037ec942ae02fd0c4b19531, type: 2}
+  questInProgressDialogue: {fileID: 11400000, guid: dc0169afe4f94254b8e520a4b8a67474, type: 2}
+  questCompleteDialogue: {fileID: 11400000, guid: 6485efdb2ddfc2a488aa5aafd14c7c5f, type: 2}
+  afterQuestDialogue: {fileID: 11400000, guid: 7ac600e90715cf64dbaad8bd4fcad71c, type: 2}
 --- !u!58 &2929724753430715937
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -137,4 +137,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3

@@ -63,10 +63,11 @@ public class NPC : MonoBehaviour
             }
         }
 
+        if(NPCID == 0) {
+            GameController.Instance.CreateRing(0);
+        }
         // If the quest is not active or complete
         dialogueController.StartDialogue(initialDialogue);    // Talk to the player
-        
-        
     }
 
     // Detect when the player is nearby

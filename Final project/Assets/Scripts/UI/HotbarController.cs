@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class HotbarController : MonoBehaviour
@@ -41,5 +42,27 @@ public class HotbarController : MonoBehaviour
 
     public HotbarSlot GetSlot(int id) {
         return hotbarSlots[id];
+    }
+
+    // Save/load the ringNumber that each slot is carrying
+    public void SaveHotbar() {
+        for(int i = 0; i < hotbarSlots.Count(); i++) {
+            Ring slottedRing = hotbarSlots[i].GetSlottedRing();
+            if(slottedRing == null) {
+                continue;
+            }
+            NDSaveLoad.SaveInt(Constants.nd_Hotbar + i, slottedRing.ringNumber);
+        }
+    }
+    public void LoadHotbar() {
+        for(int i = 0; i < hotbarSlots.Count(); i++) {
+            int ringNumber = NDSaveLoad.LoadInt(Constants.nd_Hotbar + i, -1);
+            if(ringNumber == -1) {
+                return;
+            }
+            Debug.Log("HotbarController: Equipping ring " + ringNumber);
+            hotbarSlots[i].SetRing(GameController.Instance.GetRing(ringNumber));
+            GameController.Instance.EquipRing(i, ringNumber);
+        }
     }
 }

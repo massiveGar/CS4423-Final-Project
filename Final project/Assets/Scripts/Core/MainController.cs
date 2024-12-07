@@ -2,17 +2,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 
 public class MainController : MonoBehaviour {
     public static MainController Instance { get; private set; }
     
-    int resolutionWidth, resolutionHeight;
     PlayerInputActions playerControls;
     InputActionMap actionMap;
 
     bool vsyncEnabled, fullscreenEnabled;
     
     [SerializeField] OptionsMenu options;
+
+    string saveName = "slot1.txt";
 
     void Awake() {
         if(Instance != null) {
@@ -34,6 +36,7 @@ public class MainController : MonoBehaviour {
     }
 
     void Start() {
+        NDSaveLoad.SetFileName(saveName);
         SwitchToUIControls();
 
         SetVsync(vsyncEnabled);
@@ -94,7 +97,30 @@ public class MainController : MonoBehaviour {
         return fullscreenEnabled;
     }
 
+    public void SaveAndQuit() {
+        SaveTheGame();
+        SceneManager.LoadScene("MainMenu");
+        SwitchToUIControls();
+    }
+    
     public void SaveTheGame() {
+        Debug.Log("Saving...");
         
+        GameController.Instance.Save();
+
+        NDSaveLoad.Flush();
+        Debug.Log("Saving done!");
+    }
+    public void LoadTheGame() {
+        NDSaveLoad.LoadFromFile();
+        Debug.Log("Loading...");
+        
+        SceneManager.LoadScene("Gameplay");
+    }
+    public void GameControllerLoaded() {
+        GameController.Instance.Load();
+
+        Debug.Log("Loading done!");
+        SwitchToGameplayControls();
     }
 }

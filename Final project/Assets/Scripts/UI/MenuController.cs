@@ -8,7 +8,7 @@ public class MenuController : MonoBehaviour
         MainController.Instance.NewGame();
     }
     public void LoadButtonPressed() {
-        
+        MainController.Instance.LoadTheGame();
     }
     public void OptionsButtonPressed() {
         MainController.Instance.ToggleOptions();

@@ -16,8 +16,15 @@ public class HotbarSlot : ItemSlot {
     public Image GetCooldownImage() {
         return cooldownImage;
     }
-    public void SetImage(Sprite newImage) {
-        cooldownImage.sprite = newImage;
+
+    public override void SetRing(Ring ring) {
+        slottedRing = ring;
+        if(ring == null) {
+            Debug.LogError("HotbarSlot: Ring is null");
+        }
+        ring.SetSlot(this);
+        slottedItem.SetRing(ring);
+        slottedItem.SetSlotTransform(transform);
     }
 
     /*

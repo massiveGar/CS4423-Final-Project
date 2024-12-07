@@ -75,7 +75,7 @@ public class WolfAI : DefaultEnemyAI
 
     public override void SetColor()
     {
-        Color rankColor = Color.black;
+        Color rankColor = Color.white;
         if(rank > 3 && rank <= 6) {
             rankColor = Color.grey;
         } else if(rank > 6 && rank <= 9) {

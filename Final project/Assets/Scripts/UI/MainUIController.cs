@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
 
@@ -39,8 +36,8 @@ public class MainUIController : MonoBehaviour
         dialogueController = GetComponentInChildren<DialogueController>();
 
         pauseMenu = transform.Find("Pause Menu").gameObject;
-        pauseMenu.SetActive(false);
         optionsMenu = pauseMenu.GetComponentInChildren<OptionsMenu>(true).gameObject; 
+        pauseMenu.SetActive(false);
     }    
 
     public InventoryController GetInventoryController() {
@@ -95,7 +92,7 @@ public class MainUIController : MonoBehaviour
         optionsMenu.SetActive(!optionsMenu.activeSelf);
     }
     public void SaveAndQuitButton() {
-        MainController.Instance.SaveTheGame();
-        // quit to menu
+        GameController.Instance.Unpause();
+        MainController.Instance.SaveAndQuit();
     }
 }

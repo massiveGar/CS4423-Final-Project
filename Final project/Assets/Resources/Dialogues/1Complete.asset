@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8cf0cd423685ff4aa36760ae16fa1d6, type: 3}
+  m_Name: 1Complete
+  m_EditorClassIdentifier: 
+  id: 1
+  rootnode:
+    dialogueText:
+    - DId you do it?
+    dialogueResponses:
+    - responseText: I did it!
+      nextNode:
+        dialogueText:
+        - That'll teach those dumb dogs! Take this as payment!
+        dialogueResponses: []
+        grantQuest: 0
+        openShop: 0
+    - responseText: Do what?
+      nextNode:
+        dialogueText:
+        - Kill 10 wolves!
+        dialogueResponses:
+        - responseText: Oh yeah! I think so...
+          nextNode:
+            dialogueText:
+            - Good enough for me! That'll teach those dumb dogs! Take this as payment.
+            dialogueResponses: []
+            grantQuest: 0
+            openShop: 0
+        grantQuest: 0
+        openShop: 0
+    grantQuest: 0
+    openShop: 0

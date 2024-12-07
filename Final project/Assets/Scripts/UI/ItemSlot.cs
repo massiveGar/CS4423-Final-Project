@@ -3,14 +3,15 @@ using UnityEngine.EventSystems;
 
 public abstract class ItemSlot : MonoBehaviour, IDropHandler {
     public InventoryItem slottedItem;
-    Ring slottedRing;
+    public Ring slottedRing;
 
     void Awake() {
         slottedItem = GetComponentInChildren<InventoryItem>();
     }
 
     public abstract void OnDrop(PointerEventData eventData);
-
+    public abstract void SetRing(Ring ring);
+    
     public void SetSlottedItem(InventoryItem newItem) {
         slottedItem = newItem;
         slottedRing = slottedItem.GetRing();
@@ -25,10 +26,7 @@ public abstract class ItemSlot : MonoBehaviour, IDropHandler {
         return slottedRing;
     }
 
-    public void SetRing(Ring ring) {
-        slottedRing = ring;
-        slottedItem.SetRing(ring);
-    }
+    
 
     // Swap the slotted items and their slot references from this slot and slot2
     public void Swap(ItemSlot slot2) {

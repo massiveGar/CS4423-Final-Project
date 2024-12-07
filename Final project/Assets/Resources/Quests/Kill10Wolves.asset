@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68053cf8546e9b14c8757647772716a5, type: 3}
+  m_Name: Kill10Wolves
+  m_EditorClassIdentifier: 
+  id: 1
+  objective: Kill 10 slimes
+  type: 0
+  requirement: 10
+  mobID: 1
+  reward:
+    rewardText: []
+    rewardXP: 50
+    rewardRingID: -1

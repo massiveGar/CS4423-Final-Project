@@ -10,7 +10,7 @@ using Unity.VisualScripting;
 public enum RingType {ATTACK, DEFENSE};
 
 [System.Serializable]
-public enum ResourceType {HEALTH, MANA, STAMINA};
+public enum ResourceType {HEALTH, MANA};
 
 [System.Serializable]
 public struct ResourceCost {
@@ -32,47 +32,35 @@ public class RingController : MonoBehaviour
         ringDictionary = Resources.LoadAll<Ring>("Rings");
         Array.Sort(ringDictionary, (a, b) => a.id.CompareTo(b.id));
 
-        
-        //EquipRing(0,0);
-
         audioSource = GetComponent<AudioSource>();
     }
 
     void Start() {
         inventoryController = GameController.Instance.GetInventoryController();
-
-        AddNewRing(0); // Add starter ring Slash
-        AddNewRing(1);
-        AddNewRing(2);
-        AddNewRing(0);
-        AddNewRing(1);
-        AddNewRing(2);
-        AddNewRing(1);
-        AddNewRing(0);
-        AddNewRing(2);
     }
 
-    public void AddNewRing(int ringID) {
+    public Ring AddNewRing(int ringID, int rank = 1, int level = 0) {
         if(ringID == -1) {
-            return;
+            return null;
         }
         Ring newRing = Instantiate(ringDictionary[ringID]); // Create new ring of ringID
+        newRing.SetCL(rank, level);
 
         newRing.ringNumber = ringCount; // Track which ring this is 
         ringCount++;
 
         rings.Add(newRing); // Add to the list of owned rings
-        inventoryController.AddRingToInventory(newRing);    // Add the new ring to the inventory
+        return newRing; // Return so we can add it to the inventory if needed
     }
 
-    // Equip a ring to targetIndex in hotbarRings, using the ringIndex in the rings array
-    public void EquipRing(int targetIndex, int ringIndex) {
+    // Equip a ring to targetIndex in hotbarRings, using the ringNumber in the rings array
+    public void EquipRing(int targetIndex, int ringNumber) {
         Ring ring1;
 
-        if(ringIndex == -1) {  // If equipping an empty item, ring1 is null
+        if(ringNumber == -1) {  // If equipping an empty item, ring1 is null
             ring1 = null;
         } else {
-            ring1 = rings[ringIndex];  // Otherwise, get ring1 from the inventory array
+            ring1 = rings[ringNumber];  // Otherwise, get ring1 from the inventory array
         }
         Ring ring2 = hotbarRings[targetIndex]; // ring2 is the ring in the slot we're trying to equip to
 
@@ -98,6 +86,13 @@ public class RingController : MonoBehaviour
             return null;
         }
         return hotbarRings[slot];
+    }
+    public Ring GetRing(int ringNumber) {
+        if(ringNumber >= rings.Count) {
+            Debug.LogError("RingController: Tried to get ring out of range: " + ringNumber);
+            return null;
+        }
+        return rings[ringNumber];
     }
 
     // Aim and get the Ring from the hotbar, activate the ring's ability
@@ -164,5 +159,29 @@ public class RingController : MonoBehaviour
             ring.ringNumber = i;
             i++;
         }
+    }
+
+    // Saves rings as strings, starting from Ring0
+    // Format: id,rank,level
+    public void SaveRings() {
+        int i = 0;
+        foreach(Ring ring in rings) {
+            NDSaveLoad.SaveDataDict(Constants.nd_Ring + i, ring.RingToString());
+            i++;
+        }
+    }
+    public void LoadRings() {
+        Debug.Log("RingController: Loading rings");
+        int i = 0;
+        string ringData = NDSaveLoad.GetData(Constants.nd_Ring + i, null);
+        Debug.Log("RingController: got ring: " + ringData);
+        while(ringData != null) {
+            string[] ringParts = ringData.Split(',');
+            AddNewRing(int.Parse(ringParts[0]), int.Parse(ringParts[1]), int.Parse(ringParts[2]));
+            
+            i++;
+            ringData = NDSaveLoad.GetData(Constants.nd_Ring + i, null);
+        }
+        Debug.Log("RingController: Loading done");
     }
 }

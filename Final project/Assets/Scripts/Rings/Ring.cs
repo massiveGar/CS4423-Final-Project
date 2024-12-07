@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "NewRing", menuName = "Ring")]
 public class Ring : ScriptableObject
 {
+    RingAnimationController animationController;
     public int id = -1;
     public string ringName;
     public string ringDescription;
@@ -14,6 +15,7 @@ public class Ring : ScriptableObject
     public int cooldownLength;
     public RingType ringType;
     public ResourceCost resource;
+    public string animationTrigger;
 
     [NonSerialized] public int rank = 1;
     [NonSerialized] public int level = 0;
@@ -24,8 +26,9 @@ public class Ring : ScriptableObject
     [NonSerialized] public int ringNumber;
     [NonSerialized] public int totalXP = 0;
 
-    void OnEnable() {
+    void Awake() {
         power = (int)math.round(basePower);
+        animationController = GameController.Instance.GetRingAnimationController();
     }
 
     public void SetSlot(HotbarSlot slot) {
@@ -51,10 +54,6 @@ public class Ring : ScriptableObject
             if(GameController.Instance.GetPlayerMana() < resource.cost) {
                 return false;
             }
-        } else if(resource.type == ResourceType.STAMINA) {
-            if(GameController.Instance.GetPlayerStamina() < resource.cost) {
-                return false;
-            }
         }
 
         if(ringType == RingType.ATTACK) {   // Attack the target
@@ -64,28 +63,34 @@ public class Ring : ScriptableObject
         }
         
         // TODO play animation
+        animationController.PlayAnimation(animationTrigger);
         
         // Use resource after using the ring
         if(resource.type == ResourceType.HEALTH) {
             GameController.Instance.AttackPlayer(resource.cost);
         } else if(resource.type == ResourceType.MANA) { 
             GameController.Instance.UseMana(resource.cost);
-        } else if(resource.type == ResourceType.STAMINA) {
-            GameController.Instance.UseStamina(resource.cost);
         }
 
         return true;
     }
 
-    public void SetLevel(int level) {
+    public void SetCL(int rank, int level) {
+        this.rank = rank;
         this.level = level;
+
+        for(int i = 1; i < rank; i++) {
+            totalXP += i * 10;
+        }
+        totalXP += rank * level;
+
         UpdatePower();
     }
     public void IncrementLevel() {
         level += 1;
         totalXP += rank;
         if(level == 10) {
-            basePower *= 1.5f;
+            //basePower *= 1.5f;
             rank++;
             level = 0;
         }
@@ -126,5 +131,11 @@ public class Ring : ScriptableObject
         float distance = Vector3.Distance(player.transform.position, target.transform.position);
 
         return distance <= attackRange;
+    }
+
+    // Convert ring data to string so it can be saved/loaded
+    // Format: id,rank,level
+    public string RingToString() {
+        return id + "," + rank + "," + level;
     }
 }

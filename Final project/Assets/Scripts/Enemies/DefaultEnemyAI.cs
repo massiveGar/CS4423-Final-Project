@@ -33,13 +33,17 @@ public abstract class DefaultEnemyAI : MonoBehaviour
 
     [SerializeField] int patrolWidth = 1;
     [SerializeField] int patrolHeight = 1;
+    int enemyID;
     public int rank = 1;
     public int level = 0;
+    EnemySpawner parentSpawner;
 
     Coroutine stateMachine = null;
 
     // Get references
     void Start() {
+        parentSpawner = GetComponentInParent<EnemySpawner>();
+
         player = GameController.Instance.GetPlayer().gameObject;
         patrolArea = transform.position;
 
@@ -69,12 +73,23 @@ public abstract class DefaultEnemyAI : MonoBehaviour
         patrolWidth = width;
         patrolHeight = height;
     }
+    // Used by the spawner to track this enemy
+    public void SetID(int id) {
+        enemyID = id;
+    }
 
     // Change the rank.level and change color according to rank
     public void SetCL(int rank, int level) {
         this.rank = rank;
         this.level = level;
         SetColor();
+    }
+
+    public void SetCurrentHealth(int health) {
+        currentHealth = health;
+    }
+    public int GetCurrentHealth() {
+        return currentHealth;
     }
 
     // Spawn a damage number near the enemy and fling it up and left/right
@@ -118,10 +133,7 @@ public abstract class DefaultEnemyAI : MonoBehaviour
             child.SetParent(null, false);
         }
 
-        if(transform.parent != null) {
-            EnemySpawner spawner = transform.parent.GetComponent<EnemySpawner>();
-            spawner.SpawnedMobDied();
-        }
+        parentSpawner.SpawnedMobDied(enemyID);
         
         GameController.Instance.EnemyKilled(EnemyID);
         
@@ -294,7 +306,7 @@ public abstract class DefaultEnemyAI : MonoBehaviour
         if(stateTime > 4 || distanceToTarget < 0.1f) {
             StopMoving();
             if(!waiting) {
-                StartCoroutine(WaitForGivenSeconds(Random.Range(0.3f, 2)));
+                StartCoroutine(WaitForGivenSeconds(Random.Range(0.75f, 3)));
             }
 
             if(waiting && waitingDone) {

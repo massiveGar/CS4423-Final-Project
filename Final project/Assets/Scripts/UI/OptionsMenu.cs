@@ -66,8 +66,6 @@ public class OptionsMenu : MonoBehaviour {
 
         UpdateToggleButtons();
         UpdateKeybindButtons();
-
-        gameObject.SetActive(false);
     }
 
     // Used by the rebind buttons

@@ -18,9 +18,6 @@ public class Player : MonoBehaviour
     public float currentMana = 100;
     float manaRegenAmount = 3;
 
-    int maxStamina = 100;
-    float currentStamina = 100;
-
     [Header("Movement")]
     [SerializeField] float speed = 10;
 
@@ -94,13 +91,6 @@ public class Player : MonoBehaviour
         GameController.Instance.UpdatePlayerInfo();
     }
 
-    
-
-    public void UseStamina(int amount) {
-        currentStamina -= amount;
-        GameController.Instance.UpdatePlayerInfo();
-    }
-
     public void Move(Vector2 movement){
         rb.velocity = movement * speed;
     }
@@ -109,6 +99,9 @@ public class Player : MonoBehaviour
         return currentHealth > 0;
     }
 
+    public void SetHealth(float health) {
+        currentHealth = health;
+    }
     public float GetCurrentHealth() {
         return currentHealth;
     }
@@ -116,17 +109,13 @@ public class Player : MonoBehaviour
         return maxHealth;
     }
 
+    public void SetMana(float mana) {
+        currentMana = mana;
+    }
     public float GetCurrentMana() {
         return currentMana;
     }
     public int GetMaxMana() {
         return maxMana;
-    }
-
-    public float GetCurrentStamina() {
-        return currentStamina;
-    }
-    public int GetMaxStamina() {
-        return maxStamina;
     }
 }

@@ -73,7 +73,7 @@ public class PlayerInputHandler : MonoBehaviour {
     }
     private void SelectHotbar(InputAction.CallbackContext context) {
         int bindingIndex = context.action.GetBindingIndexForControl(context.control);
-
+        
         GameController.Instance.ActivateHotbarSlot(bindingIndex);
     }
     private void ToggleInventory(InputAction.CallbackContext context) {

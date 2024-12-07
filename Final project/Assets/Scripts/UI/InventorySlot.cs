@@ -20,4 +20,10 @@ public class InventorySlot : ItemSlot {
             Swap(pendingItem.GetSlotTransform().GetComponent<ItemSlot>());            
         }
     }
+
+    public override void SetRing(Ring ring) {
+        slottedRing = ring;
+        slottedItem.SetRing(ring);
+        slottedItem.SetSlotTransform(transform);
+    }
 }

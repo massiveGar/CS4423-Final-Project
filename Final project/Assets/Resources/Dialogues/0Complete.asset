@@ -31,6 +31,7 @@ MonoBehaviour:
         dialogueText:
         - Of course! Here, take some <i>Charge Orbs</i>. Come see me in my shop and
           you can see what I've got for sale.
+        - By the way, there's a town up north if you're looking for other people.
         dialogueResponses: []
         grantQuest: 0
         openShop: 0
